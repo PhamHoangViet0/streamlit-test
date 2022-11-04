@@ -238,16 +238,21 @@ def crop_rect(img, rect):
     k = 4  # scale up coefficient
     # print(height, width)
 
-    dst_pts = np.array([[0, height * k - 1],
+    # dst_pts = np.array([[0, height * k - 1],
+    #                     [0, 0],
+    #                     [width * k - 1, 0],
+    #                     [width * k - 1, height * k - 1]], dtype="float32")
+    dst_pts = np.array([[0, 400 - 1],
                         [0, 0],
-                        [width * k - 1, 0],
-                        [width * k - 1, height * k - 1]], dtype="float32")
+                        [1000 - 1, 0],
+                        [1000 - 1, 400 - 1]], dtype="float32")
     # print(src_pts, dst_pts)
     # print('asd')
     # build transformation matrix, and perform tramsformation
     # Perspective can be changed to Affine, but require different input
     M = cv.getPerspectiveTransform(src_pts, dst_pts)
-    warped = cv.warpPerspective(img, M, (width * k, height * k), borderMode=cv.BORDER_REPLICATE, flags=cv.INTER_CUBIC)
+    # warped = cv.warpPerspective(img, M, (width * k, height * k), borderMode=cv.BORDER_REPLICATE, flags=cv.INTER_CUBIC)
+    warped = cv.warpPerspective(img, M, (1000, 400), borderMode=cv.BORDER_REPLICATE, flags=cv.INTER_CUBIC)
 
     return warped
 
