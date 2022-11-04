@@ -180,6 +180,7 @@ def imgProc(gray, sig1=32, sig2=1, k=1, vis=False):
     # norm = local_norm(sharp, 276 * 8 / (512 / sig1), 276 / (512 / sig1), 276 / 2 / (512 / sig2), 276 * 8 / (512 / sig2))
     # norm = local_norm(sharp, 100, 1, 2.5, 1)
     norm = local_norm(sharp, h / 3, 1, h / 125, 1)
+    # norm = local_norm(sharp, h / 3, 1, h / 75, 1)
     # norm = sharp
 
     # blur2 = cv.GaussianBlur(norm, (0, 0), sigmaX=h / 750, sigmaY=h / 100)
@@ -433,7 +434,7 @@ def readCode(norm):
     func_args = [] #  [[line, threshold] for threshold in range(mid - radius, mid + radius, step)]
     countread = 0
     for y in nline:
-        stretch = extStretch(norm[y], threshold=15)
+        stretch = extStretch(norm[y], threshold=25)
         func_args += [[stretch, threshold] for threshold in range(mid - radius, mid + radius, step)]
 
 
